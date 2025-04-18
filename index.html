@@ -1,766 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creavidy | UX/UI Designer Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap');
-        
-        :root {
-            --neon-purple: #c724f1;
-            --gold: #ffd700;
-            --turquoise: #40e0d0;
-            --fuchsia: #ff00ff;
-            --pure-white: #ffffff;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-        }
-        
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--dark-bg);
-            color: white;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23c724f1" stroke-width="1.5"/><circle cx="8" cy="8" r="1.5" fill="%23c724f1"/></svg>'), auto;
-        }
-        
-        .glassmorphic {
-            background: rgba(15, 15, 15, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-        }
-        
-        .portal-bg {
-            background: radial-gradient(circle, rgba(199,36,241,0.2) 0%, rgba(0,0,0,0) 70%);
-        }
-        
-        .floating-core {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(199,36,241,0.3) 0%, rgba(64,224,208,0.2) 50%, rgba(0,0,0,0) 70%);
-            box-shadow: 0 0 60px rgba(199, 36, 241, 0.4), 
-                        0 0 100px rgba(64, 224, 208, 0.3),
-                        0 0 140px rgba(255, 215, 0, 0.2);
-            position: relative;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .floating-core::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-            opacity: 0.2;
-            filter: blur(10px);
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 0;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: var(--neon-purple);
-            box-shadow: 0 0 10px var(--neon-purple);
-        }
-        
-        .work-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(199, 36, 241, 0.3);
-        }
-        
-        .work-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(199,36,241,0.1) 0%, rgba(64,224,208,0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .work-card:hover::after {
-            opacity: 1;
-        }
-        
-        .contact-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .contact-input:focus {
-            outline: none;
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 10px rgba(199, 36, 241, 0.5);
-        }
-        
-        .cursor-follower {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(199, 36, 241, 0.3);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
-        }
-        
-        .cursor-follower-inner {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--neon-purple);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--neon-purple);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .mode-toggle {
-            width: 50px;
-            height: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .mode-toggle::before {
-            content: '';
-            position: absolute;
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: var(--neon-purple);
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s ease;
-        }
-        
-        .light-mode .mode-toggle::before {
-            transform: translateX(25px);
-        }
-        
-        .light-mode {
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        
-        .light-mode .glassmorphic {
-            background: rgba(255, 255, 255, 0.7);
-            color: #333;
-        }
-        
-        .light-mode .contact-input {
-            background: rgba(0, 0, 0, 0.05);
-            color: #333;
-        }
-        
-        .light-mode .floating-core {
-            background: radial-gradient(circle, rgba(199,36,241,0.1) 0%, rgba(64,224,208,0.1) 50%, rgba(255,255,255,0) 70%);
-            box-shadow: 0 0 60px rgba(199, 36, 241, 0.2), 
-                        0 0 100px rgba(64, 224, 208, 0.15),
-                        0 0 140px rgba(255, 215, 0, 0.1);
-        }
-        
-        .signature {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            background: linear-gradient(90deg, var(--neon-purple), var(--turquoise));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .creavidy-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(90deg, var(--neon-purple), var(--turquoise));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-        }
-    </style>
+  <!-- Site made with Mobirise Website Builder v6.0.1, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v6.0.1, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/shop3.jpg" type="image/x-icon">
+  <meta name="description" content="">
+  
+  
+  <title>Home</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/parallax/jarallax.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap"></noscript>
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=SJE2Sx"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=SJE2Sx" type="text/css">
+
+  
+  
+  
 </head>
-<body class="relative">
-    <!-- Cursor Follower -->
-    <div class="cursor-follower hidden md:block">
-        <div class="cursor-follower-inner"></div>
+<body>
+  
+  <section data-bs-version="5.1" class="menu menu5 cid-uIKxo5pO06" once="menu" id="menu05-3">
+	
+
+	<nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+		<div class="container">
+			<div class="navbar-brand">
+				<span class="navbar-logo">
+					<a href="https://mobiri.se">
+						<img src="assets/images/shop3.jpg" alt="Mobirise Website Builder" style="height: 4.3rem;">
+					</a>
+				</span>
+				<span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="https://mobiri.se">Mobirise</a></span>
+			</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<div class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item">
+						<a class="nav-link link text-black display-4" href="https://mobiri.se">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link link text-black display-4" href="https://mobiri.se" aria-expanded="false">Services</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link link text-black display-4" href="https://mobiri.se">Contacts</a>
+					</li></ul>
+				<div class="navbar-buttons mbr-section-btn">
+					<a class="btn btn-primary display-4" href="https://mobiri.se"> Start Now!</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</section>
+
+<section data-bs-version="5.1" class="header16 cid-uIKxqP20Ke mbr-fullscreen mbr-parallax-background" id="header17-4">
+  
+  
+  <div class="container-fluid">
+    <div class="row">
+      <div class="content-wrap col-12 col-md-12">
+        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
+          <strong><br>Parallax background</strong>
+        </h1>
+        
+        <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">Full-screen block with parallax image background and flexible
+          configuration, free vertical and horizontal
+          content alignment.&nbsp;</p>
+        <div class="mbr-section-btn"><a class="btn btn-white-outline display-7" href="https://mobiri.se">Learn More</a></div>
+      </div>
     </div>
-    
-    <!-- Navigation -->
-    <nav class="glassmorphic fixed top-0 left-0 right-0 z-50 py-4 px-8 flex justify-between items-center">
-        <div class="text-xl font-bold">
-            <span class="creavidy-logo">Creavidy</span>
-        </div>
-        <div class="hidden md:flex space-x-8">
-            <a href="#home" class="nav-link text-white hover:text-purple-400">Home</a>
-            <a href="#about" class="nav-link text-white hover:text-purple-400">Who I Am</a>
-            <a href="#work" class="nav-link text-white hover:text-purple-400">My Work</a>
-            <a href="#core" class="nav-link text-white hover:text-purple-400">The Core</a>
-            <a href="#contact" class="nav-link text-white hover:text-purple-400">Contact</a>
-        </div>
-        <div class="flex items-center space-x-4">
-            <div class="mode-toggle" id="modeToggle"></div>
-            <button class="md:hidden text-white" id="mobileMenuButton">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-        </div>
-    </nav>
-    
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="glassmorphic fixed top-0 left-0 right-0 h-screen z-40 flex flex-col items-center justify-center space-y-8 transform translate-y-full transition-transform duration-300">
-        <a href="#home" class="nav-link text-white text-2xl hover:text-purple-400">Home</a>
-        <a href="#about" class="nav-link text-white text-2xl hover:text-purple-400">Who I Am</a>
-        <a href="#work" class="nav-link text-white text-2xl hover:text-purple-400">My Work</a>
-        <a href="#core" class="nav-link text-white text-2xl hover:text-purple-400">The Core</a>
-        <a href="#contact" class="nav-link text-white text-2xl hover:text-purple-400">Contact</a>
-    </div>
-    
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden portal-bg">
-        <div class="absolute inset-0 flex items-center justify-center">
-            <div class="floating-core" id="floatingCore"></div>
-        </div>
-        <div class="container mx-auto px-6 z-10 text-center">
-            <h1 class="text-5xl md:text-7xl font-bold mb-4">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Demet Akgül</span>
-            </h1>
-            <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto">
-                Welcome to <span class="creavidy-logo">Creavidy</span> - where digital experiences blend <span class="text-purple-400">art</span>, <span class="text-cyan-400">technology</span>, and <span class="text-yellow-300">human emotion</span>
-            </p>
-            <div class="flex justify-center space-x-4">
-                <a href="#work" class="px-8 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full font-medium hover:opacity-90 transition-all transform hover:scale-105">
-                    Explore Work
-                </a>
-                <a href="#contact" class="px-8 py-3 border border-purple-400 text-purple-400 rounded-full font-medium hover:bg-purple-400 hover:bg-opacity-10 transition-all transform hover:scale-105">
-                    Contact Me
-                </a>
-            </div>
-        </div>
-        <div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-            <a href="#about" class="text-white text-2xl">
-                <i class="fas fa-chevron-down"></i>
-            </a>
-        </div>
-    </section>
-    
-    <!-- About Section -->
-    <section id="about" class="py-20 relative overflow-hidden">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Who I Am</span>
-            </h2>
-            
-            <div class="max-w-4xl mx-auto relative">
-                <!-- Timeline -->
-                <div class="border-l-2 border-purple-400 border-opacity-30 pl-8 space-y-16">
-                    <!-- Timeline Item 1 -->
-                    <div class="timeline-item relative">
-                        <div class="glassmorphic p-6 rounded-xl">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center mr-4">
-                                    <i class="fas fa-paint-brush text-white"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold">Artistic Beginnings</h3>
-                            </div>
-                            <p class="text-gray-300">
-                                My journey began with traditional art forms - painting, sketching, and sculpture. This foundation gave me an innate understanding of composition, color theory, and visual storytelling that I now apply to digital experiences.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Timeline Item 2 -->
-                    <div class="timeline-item relative">
-                        <div class="glassmorphic p-6 rounded-xl">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-yellow-300 flex items-center justify-center mr-4">
-                                    <i class="fas fa-laptop-code text-white"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold">Digital Transition</h3>
-                            </div>
-                            <p class="text-gray-300">
-                                Discovering digital design opened new creative dimensions. I immersed myself in UI/UX principles, learning to blend aesthetics with functionality. My work evolved from static visuals to interactive experiences that engage users on multiple levels.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Timeline Item 3 -->
-                    <div class="timeline-item relative">
-                        <div class="glassmorphic p-6 rounded-xl">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-300 to-fuchsia-500 flex items-center justify-center mr-4">
-                                    <i class="fas fa-lightbulb text-white"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold">Creavidy Philosophy</h3>
-                            </div>
-                            <p class="text-gray-300">
-                                At Creavidy, we believe design should be intuitive yet surprising, familiar yet innovative. Every pixel, interaction, and transition serves a purpose in guiding users through meaningful journeys. Our process blends research, experimentation, and relentless refinement.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Work Section -->
-    <section id="work" class="py-20 relative overflow-hidden">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Creavidy Projects</span>
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Work Card 1 -->
-                <div class="work-card glassmorphic rounded-xl overflow-hidden transition-all duration-300 relative">
-                    <div class="h-48 bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center">
-                        <i class="fas fa-mobile-alt text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Nexus Banking App</h3>
-                        <p class="text-gray-300 mb-4">Redesigned mobile banking experience with intuitive gestures and personalized financial insights.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded-full text-sm">UX Design</span>
-                            <span class="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded-full text-sm">Mobile</span>
-                            <span class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded-full text-sm">Fintech</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Work Card 2 -->
-                <div class="work-card glassmorphic rounded-xl overflow-hidden transition-all duration-300 relative">
-                    <div class="h-48 bg-gradient-to-r from-cyan-500 to-yellow-300 flex items-center justify-center">
-                        <i class="fas fa-shopping-bag text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Aurora E-Commerce</h3>
-                        <p class="text-gray-300 mb-4">Immersive shopping platform with AR product previews and AI-powered recommendations.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded-full text-sm">UI Design</span>
-                            <span class="px-3 py-1 bg-fuchsia-500 bg-opacity-20 text-fuchsia-300 rounded-full text-sm">AR</span>
-                            <span class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded-full text-sm">E-Commerce</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Work Card 3 -->
-                <div class="work-card glassmorphic rounded-xl overflow-hidden transition-all duration-300 relative">
-                    <div class="h-48 bg-gradient-to-r from-yellow-300 to-fuchsia-500 flex items-center justify-center">
-                        <i class="fas fa-chart-line text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">DataSphere Analytics</h3>
-                        <p class="text-gray-300 mb-4">Complex data visualization made accessible through interactive dashboards and storytelling.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded-full text-sm">Data Viz</span>
-                            <span class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded-full text-sm">Dashboard</span>
-                            <span class="px-3 py-1 bg-fuchsia-500 bg-opacity-20 text-fuchsia-300 rounded-full text-sm">Analytics</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Work Card 4 -->
-                <div class="work-card glassmorphic rounded-xl overflow-hidden transition-all duration-300 relative">
-                    <div class="h-48 bg-gradient-to-r from-fuchsia-500 to-purple-500 flex items-center justify-center">
-                        <i class="fas fa-gamepad text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Neon Dreams Game UI</h3>
-                        <p class="text-gray-300 mb-4">Cyberpunk-inspired game interface with dynamic HUD elements and immersive menus.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-fuchsia-500 bg-opacity-20 text-fuchsia-300 rounded-full text-sm">Game UI</span>
-                            <span class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded-full text-sm">Motion</span>
-                            <span class="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded-full text-sm">Gaming</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Work Card 5 -->
-                <div class="work-card glassmorphic rounded-xl overflow-hidden transition-all duration-300 relative">
-                    <div class="h-48 bg-gradient-to-r from-purple-500 to-fuchsia-500 flex items-center justify-center">
-                        <i class="fas fa-headset text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">VR Meditation Space</h3>
-                        <p class="text-gray-300 mb-4">Serene virtual environment with biofeedback integration for personalized meditation.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-300 rounded-full text-sm">VR</span>
-                            <span class="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded-full text-sm">Wellness</span>
-                            <span class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded-full text-sm">Immersive</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Work Card 6 -->
-                <div class="work-card glassmorphic rounded-xl overflow-hidden transition-all duration-300 relative">
-                    <div class="h-48 bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center">
-                        <i class="fas fa-globe text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Creavidy Design System</h3>
-                        <p class="text-gray-300 mb-4">Comprehensive design system with modular components for consistent digital products.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-cyan-500 bg-opacity-20 text-cyan-300 rounded-full text-sm">System</span>
-                            <span class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-300 rounded-full text-sm">Components</span>
-                            <span class="px-3 py-1 bg-fuchsia-500 bg-opacity-20 text-fuchsia-300 rounded-full text-sm">Scalable</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- The Core Section -->
-    <section id="core" class="min-h-screen py-20 relative overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 flex items-center justify-center">
-            <div class="floating-core" id="interactiveCore"></div>
-        </div>
-        <div class="container mx-auto px-6 z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl md:text-5xl font-bold mb-8">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">The Creavidy Core</span>
-                </h2>
-                <p class="text-xl md:text-2xl mb-12 text-gray-300">
-                    The floating orb represents the Creavidy design philosophy - fluid, dynamic, and ever-evolving. Interact with it to see principles in motion.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glassmorphic p-6 rounded-xl hover:bg-purple-500 hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-eye text-purple-300 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Visual Harmony</h3>
-                        <p class="text-gray-300">Balancing aesthetics with purpose to create interfaces that delight and guide.</p>
-                    </div>
-                    
-                    <div class="glassmorphic p-6 rounded-xl hover:bg-cyan-500 hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 rounded-full bg-cyan-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-hand-pointer text-cyan-300 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Intuitive Flow</h3>
-                        <p class="text-gray-300">Designing interactions that feel natural and effortless to users.</p>
-                    </div>
-                    
-                    <div class="glassmorphic p-6 rounded-xl hover:bg-yellow-500 hover:bg-opacity-20 transition-all">
-                        <div class="w-16 h-16 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-bolt text-yellow-300 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2">Emotional Impact</h3>
-                        <p class="text-gray-300">Creating experiences that resonate on a human level beyond functionality.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 relative overflow-hidden">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Let's Create</span>
-            </h2>
-            
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="glassmorphic p-8 rounded-xl">
-                    <h3 class="text-2xl font-bold mb-6">Get In Touch</h3>
-                    <form id="contactForm" class="space-y-6">
-                        <div>
-                            <label for="name" class="block mb-2 text-gray-300">Your Name</label>
-                            <input type="text" id="name" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none">
-                        </div>
-                        <div>
-                            <label for="email" class="block mb-2 text-gray-300">Email Address</label>
-                            <input type="email" id="email" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none">
-                        </div>
-                        <div>
-                            <label for="message" class="block mb-2 text-gray-300">Your Message</label>
-                            <textarea id="message" rows="5" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full font-medium hover:opacity-90 transition-all transform hover:scale-[1.02]">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="glassmorphic p-8 rounded-xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-6">Connect With Creavidy</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center mr-4">
-                                    <i class="fas fa-envelope text-purple-300"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">Email</p>
-                                    <a href="mailto:hello@creavidy.com" class="text-white hover:text-purple-300">hello@creavidy.com</a>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-cyan-500 bg-opacity-20 flex items-center justify-center mr-4">
-                                    <i class="fab fa-dribbble text-cyan-300"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">Dribbble</p>
-                                    <a href="https://dribbble.com/creavidy" target="_blank" class="text-white hover:text-cyan-300">dribbble.com/creavidy</a>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-yellow-500 bg-opacity-20 flex items-center justify-center mr-4">
-                                    <i class="fab fa-behance text-yellow-300"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">Behance</p>
-                                    <a href="https://behance.net/creavidy" target="_blank" class="text-white hover:text-yellow-300">behance.net/creavidy</a>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-fuchsia-500 bg-opacity-20 flex items-center justify-center mr-4">
-                                    <i class="fab fa-linkedin-in text-fuchsia-300"></i>
-                                </div>
-                                <div>
-                                    <p class="text-gray-400">LinkedIn</p>
-                                    <a href="https://linkedin.com/company/creavidy" target="_blank" class="text-white hover:text-fuchsia-300">linkedin.com/company/creavidy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-12">
-                        <p class="text-gray-400 mb-2">With creative regards,</p>
-                        <div class="signature text-3xl">The Creavidy Team</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="glassmorphic py-8 text-center">
-        <div class="container mx-auto px-6">
-            <p class="text-gray-400">© <span id="currentYear"></span> <span class="creavidy-logo">Creavidy</span>. All rights reserved.</p>
-            <div class="flex justify-center space-x-6 mt-4">
-                <a href="#" class="text-gray-400 hover:text-purple-300 transition-colors">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-cyan-300 transition-colors">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-yellow-300 transition-colors">
-                    <i class="fab fa-medium"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-fuchsia-300 transition-colors">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        // Set current year
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('translate-y-full');
-            mobileMenu.classList.toggle('translate-y-0');
-        });
-        
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-y-full');
-                mobileMenu.classList.remove('translate-y-0');
-            });
-        });
-        
-        // Dark/light mode toggle
-        const modeToggle = document.getElementById('modeToggle');
-        
-        modeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-        });
-        
-        // Cursor follower
-        const cursorFollower = document.querySelector('.cursor-follower');
-        
-        if (cursorFollower) {
-            document.addEventListener('mousemove', (e) => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            });
-            
-            // Add hover effects
-            document.querySelectorAll('a, button, .work-card').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(2)';
-                    cursorFollower.style.opacity = '0.5';
-                });
-                
-                el.addEventListener('mouseleave', () => {
-                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorFollower.style.opacity = '1';
-                });
-            });
-        }
-        
-        // Interactive core
-        const interactiveCore = document.getElementById('interactiveCore');
-        
-        if (interactiveCore) {
-            document.addEventListener('mousemove', (e) => {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                interactiveCore.style.transform = `translate(${x * 20 - 10}px, ${y * 20 - 10}px) rotate(${x * 20}deg)`;
-                
-                // Change color based on position
-                const hue = x * 360;
-                const saturation = 80 + y * 20;
-                const lightness = 50;
-                
-                interactiveCore.style.background = `radial-gradient(circle, hsla(${hue}, ${saturation}%, ${lightness}%, 0.3) 0%, hsla(${(hue + 60) % 360}, ${saturation}%, ${lightness}%, 0.2) 50%, rgba(0,0,0,0) 70%)`;
-                interactiveCore.style.boxShadow = `0 0 60px hsla(${hue}, ${saturation}%, ${lightness}%, 0.4), 
-                                                  0 0 100px hsla(${(hue + 60) % 360}, ${saturation}%, ${lightness}%, 0.3),
-                                                  0 0 140px hsla(${(hue + 120) % 360}, ${saturation}%, ${lightness}%, 0.2)`;
-            });
-        }
-        
-        // GSAP animations
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Animate sections on scroll
-        gsap.utils.toArray('section').forEach(section => {
-            gsap.from(section, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: 'power3.out'
-            });
-        });
-        
-        // Animate work cards
-        gsap.utils.toArray('.work-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                y: 30,
-                duration: 0.5,
-                delay: i * 0.1,
-                ease: 'power2.out'
-            });
-        });
-        
-        // Animate timeline items
-        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                x: -30,
-                duration: 0.8,
-                delay: i * 0.15,
-                ease: 'power3.out'
-            });
-        });
-        
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Get form values
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-                
-                // Here you would typically send the form data to a server
-                console.log('Form submitted:', { name, email, message });
-                
-                // Show success message
-                const submitButton = contactForm.querySelector('button[type="submit"]');
-                const originalText = submitButton.textContent;
-                
-                submitButton.textContent = 'Message Sent!';
-                submitButton.classList.add('bg-gradient-to-r', 'from-green-500', 'to-cyan-500');
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Reset button after delay
-                setTimeout(() => {
-                    submitButton.textContent = originalText;
-                    submitButton.classList.remove('bg-gradient-to-r', 'from-green-500', 'to-cyan-500');
-                    submitButton.classList.add('bg-gradient-to-r', 'from-purple-500', 'to-cyan-500');
-                }, 3000);
-            });
-        }
-    </script>
+  </div>
+</section>
+
+<section data-bs-version="5.1" class="header10 cid-uIKxuQcWfA" id="header10-5">
+	
+
+	
+	
+
+	<div class="text-center container">
+	  <div class="row justify-content-center">
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-12 content-text mb-5">
+				<h5 class="mbr-section-title mbr-fonts-style display-1">
+					<strong>Intro with video</strong>
+				</h5>
+				<p class="mbr-text mbr-fonts-style mt-4 display-7">
+					The creative process is a journey of exploration and discovery, where new ideas are born and
+					transformed into reality.
+				</p>
+				<div class="mbr-section-btn mt-4">
+					<a class="btn btn-primary display-7" href="https://mobiri.se">
+						Download now</a>
+				</div>
+
+			</div>
+			<div class="mbr-figure col-12 col-md-9"><iframe class="mbr-embedded-video" src="https://www.youtube.com/embed/-BSQlJxCDcI?rel=0&amp;amp;mute=1&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;playlist=-BSQlJxCDcI" width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>
+		</div>
+	</div>
+</section>
+
+<section data-bs-version="5.1" class="features4 start cid-uIKxxDFeJR" id="features04-6">
+	
+	
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 content-head">
+				<div class="mbr-section-head mb-5">
+					<h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+						<strong>Our Products</strong>
+					</h4>
+					
+					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="item features-image col-12 col-md-6 col-lg-4">
+				<div class="item-wrapper">
+					<div class="item-img">
+						<img src="assets/images/shop1.jpg" alt="Mobirise Website Builder">
+					</div>
+					<div class="item-content">
+						<h5 class="item-title mbr-fonts-style display-5">
+							<strong>Marketing</strong>
+						</h5>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit habitant turpis.
+						</p>
+						<div class="mbr-section-btn item-footer">
+						<a href="" class="btn item-btn btn-primary display-7">Learn More</a>
+					</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="item features-image col-12 col-md-6 col-lg-4">
+				<div class="item-wrapper">
+					<div class="item-img">
+						<img src="assets/images/shop2.jpg" alt="Mobirise Website Builder">
+					</div>
+					<div class="item-content">
+						<h5 class="item-title mbr-fonts-style display-5">
+							<strong>Promotion</strong>
+						</h5>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit habitant turpis .
+						</p>
+						<div class="mbr-section-btn item-footer">
+							<a href="" class="btn item-btn btn-primary display-7">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item features-image col-12 col-md-6 col-lg-4">
+				<div class="item-wrapper">
+					<div class="item-img">
+						<img src="assets/images/shop3.jpg" alt="Mobirise Website Builder">
+					</div>
+					<div class="item-content">
+						<h5 class="item-title mbr-fonts-style display-5">
+							<strong>Branding</strong>
+						</h5>
+						<p class="mbr-text mbr-fonts-style display-7">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit habitant turpis .<br>
+						</p>
+						<div class="mbr-section-btn item-footer">
+							<a href="" class="btn item-btn btn-primary display-7">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section data-bs-version="5.1" class="footer1 cid-uIKxGfga0l" once="footers" id="footer01-8">
+	
+
+	
+	
+	<div class="container">
+		<div class="row mbr-white">
+			<div class="col-12 col-md-6 col-lg-3">
+				<h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-5">
+					<strong>Company</strong>
+				</h5>
+				<ul class="list mbr-fonts-style display-7">
+					<li class="mbr-text item-wrap">About</li>
+					<li class="mbr-text item-wrap">Press</li>
+					<li class="mbr-text item-wrap">Careers</li>
+					<li class="mbr-text item-wrap">Social</li>
+					<li class="mbr-text item-wrap">Contact</li>
+				</ul>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3">
+				<h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-5">
+					<strong>Features</strong>
+				</h5>
+				<ul class="list mbr-fonts-style display-7">
+					<li class="mbr-text item-wrap">Branding</li>
+					<li class="mbr-text item-wrap">Promotion</li>
+					<li class="mbr-text item-wrap">Design</li>
+					<li class="mbr-text item-wrap">Creative</li>
+					<li class="mbr-text item-wrap">Production</li>
+				</ul>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3">
+				<h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-5">
+					<strong>Support</strong>
+				</h5>
+				<ul class="list mbr-fonts-style display-7">
+					<li class="mbr-text item-wrap">Help</li>
+					<li class="mbr-text item-wrap">Info</li>
+					<li class="mbr-text item-wrap">Contacts</li>
+					<li class="mbr-text item-wrap">FAQ</li>
+					<li class="mbr-text item-wrap">Report</li>
+				</ul>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3">
+				<h5 class="mbr-section-subtitle mbr-fonts-style mb-2 display-5">
+					<strong>About</strong>
+				</h5>
+				<ul class="list mbr-fonts-style display-7">
+					<li class="mbr-text item-wrap">History</li>
+					<li class="mbr-text item-wrap">Clients</li>
+					<li class="mbr-text item-wrap">Teams</li>
+					<li class="mbr-text item-wrap">Brand</li>
+					<li class="mbr-text item-wrap">Terms</li>
+				</ul>
+			</div>
+			<div class="col-12 mt-5 footer-col">
+				<div class="mbr-section-btn align-left">
+					<a class="btn btn-primary display-7" href="https://mobiri.se">Sign Up</a>
+					<a class="btn btn-success-outline display-7" href="https://mobiri.se">Read More</a>
+				</div>
+
+				<div class="social-row mt-2 display-7">
+					<div class="soc-item">
+						<a href="https://mobiri.se/">
+							<span class="mbr-iconfont socicon socicon-facebook"></span>
+						</a>
+					</div>
+					<div class="soc-item">
+						<a href="https://mobiri.se/">
+							<span class="mbr-iconfont socicon socicon-twitter"></span>
+						</a>
+					</div>
+					<div class="soc-item">
+						<a href="https://mobiri.se/">
+							<span class="mbr-iconfont socicon socicon-instagram"></span>
+						</a>
+					</div>
+					<div class="soc-item">
+						<a href="https://mobiri.se/">
+							<span class="mbr-iconfont socicon-logmein socicon"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 mt-4">
+				<p class="mbr-text mb-0 mbr-fonts-style copyright align-center display-7">
+					© Copyright 2030 Mobirise - All Rights Reserved
+				</p>
+			</div>
+		</div>
+	</div>
+</section><section class="display-7" style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap;    align-content: center;display: flex;position: relative;height: 4rem;"><a href="https://mobiri.se/3947827" style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;"><img alt="" style="height: 4rem;" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a><p style="margin: 0;text-align: center;" class="display-7">&#8204;</p><a style="z-index:1" href="https://mobirise.com/offline-website-builder.html">Offline Website Builder</a></section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/parallax/jarallax.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/playervimeo/vimeo_player.js"></script>  <script src="assets/theme/js/script.js"></script>  
+  
+  
 </body>
 </html>
